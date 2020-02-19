@@ -1,0 +1,14 @@
+.vscode/
+dist/
+node_modules/
+!lib/*/node_modules/
+tests/
+
+.example.env
+.env.local
+.env.*.local
+
+.DS_Store
+
+temp/
+!temp/.gitkeep
