@@ -5,7 +5,9 @@
   "main": "index.ts",
   "scripts": {
     "start": "ts-node src/app.ts",
-    "db:init": "ts-node src/initDB.ts"
+    "lint:fix": "eslint --fix --ext .ts,.js --ignore-path .gitignore .",
+    "db:init": "ts-node tools/initDB.ts",
+    "db:sync": "ts-node tools/syncDB.ts"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +16,7 @@
     "@types/node": "^13.7.0",
     "@types/validator": "^12.0.1",
     "apollo-server-koa": "^2.9.16",
+    "class-validator": "^0.11.0",
     "dataloader": "^2.0.0",
     "graphql": "^14.6.0",
     "koa": "^2.11.0",

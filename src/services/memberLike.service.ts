@@ -1,9 +1,9 @@
-import db from '../databases';
-import { Service } from 'typedi';
+import { Service } from "typedi";
+import { Op } from "sequelize";
 
-import Book from '../databases/models/book.model';
-import { Op } from 'sequelize';
-import { GroupByIds } from './utils';
+import db from "../databases";
+import Book from "../databases/models/book.model";
+import { groupByKeys } from "./utils";
 
 @Service()
 export class MemberLikeService {
@@ -26,7 +26,7 @@ export class MemberLikeService {
                 },
             },
         });
-        const groups = GroupByIds(results, ids, 'memberId');
+        const groups = groupByKeys(results, ids, "memberId");
 
         return (ids as number[]).map(id => groups[id].map(item => item.book));
     }

@@ -9,16 +9,16 @@ import {
     BelongsTo,
     HasOne,
     BelongsToMany,
-} from 'sequelize-typescript';
-import { ObjectType, Field, Int, ID } from 'type-graphql';
-import Book from './book.model';
-import MemberLikeBook from './memberLikeBook.model';
+} from "sequelize-typescript";
+import { ObjectType, Field, Int, ID } from "type-graphql";
+import Book from "./book.model";
+import MemberLikeBook from "./memberLikeBook.model";
 
 @Table({
-    tableName: 'members',
+    tableName: "members",
     timestamps: true,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
+    createdAt: "created_at",
+    updatedAt: "updated_at",
 })
 @ObjectType()
 export default class Member extends Model<Member> {
@@ -39,11 +39,11 @@ export default class Member extends Model<Member> {
         type: DataType.INTEGER,
         allowNull: true,
     })
-    @Field()
+    @Field({ nullable: true })
     age: number;
 
     @HasMany(() => Book, {
-        foreignKey: 'author_id',
+        foreignKey: "author_id",
     })
     @Field(type => [Book], { nullable: true })
     books: Book[];

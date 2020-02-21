@@ -1,9 +1,14 @@
-import { Service } from 'typedi';
+import { Service } from "typedi";
 
-import db from '../databases';
-import Book from '../databases/models/book.model';
-import { Op } from 'sequelize';
-import { SortBydIds } from './utils';
+import db from "../databases";
+import Book from "../databases/models/book.model";
+import { Op } from "sequelize";
+import { sortByKeys } from "./utils";
+
+interface BookParams {
+    name: string;
+    authorId: number;
+}
 
 @Service()
 export class BookService {
@@ -24,6 +29,14 @@ export class BookService {
                 },
             },
         });
-        return SortBydIds(result, authorIds).map(item => item.books);
+        return sortByKeys(result, authorIds).map(item => item.books);
+    }
+    async createBook(params: BookParams): Promise<Book> {
+        const book = db.Book.build({
+            name: params.name,
+            authorId: params.authorId,
+        });
+        await book.save();
+        return book;
     }
 }

@@ -1,10 +1,10 @@
-import { MiddlewareInterface, NextFn, ResolverData } from 'type-graphql';
+import { MiddlewareInterface, NextFn, ResolverData } from "type-graphql";
 // import DataLoader = require('dataloader');
-import { Context } from 'koa';
-import { Service, Inject } from 'typedi';
+import { Context } from "koa";
+import { Service, Inject } from "typedi";
 
 // import Book from '../databases/models/book.model';
-import { DataLoaderFactory } from '../dataloader';
+import { DataLoaderFactory } from "../dataloader";
 @Service()
 export class DataLoaderMiddleware implements MiddlewareInterface<Context> {
     @Inject()

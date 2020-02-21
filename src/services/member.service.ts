@@ -1,9 +1,9 @@
-import db from '../databases';
-import { Service } from 'typedi';
+import { Service } from "typedi";
+import { Op } from "sequelize";
 
-import Member from '../databases/models/member.model';
-import Book from '../databases/models/book.model';
-import MemberLikeBook from '../databases/models/memberLikeBook.model';
+import db from "../databases";
+import Member from "../databases/models/member.model";
+import { sortByKeys } from "./utils";
 
 @Service()
 export class MemberService {
@@ -14,5 +14,15 @@ export class MemberService {
     }
     async findAll(): Promise<Member[]> {
         return db.Member.findAll();
+    }
+    async findAllByIds(ids: number[] | readonly number[]): Promise<Member[]> {
+        const result = await db.Member.findAll({
+            where: {
+                id: {
+                    [Op.in]: ids,
+                },
+            },
+        });
+        return sortByKeys(result, ids);
     }
 }

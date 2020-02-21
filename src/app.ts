@@ -1,20 +1,23 @@
-import 'reflect-metadata';
+import "reflect-metadata";
 
-import * as Koa from 'koa';
-import { buildSchemaSync } from 'type-graphql';
-import { ApolloServer } from 'apollo-server-koa';
-import { Container } from 'typedi';
-import { DataLoaderMiddleware } from './middlewares/dataloader.middleware';
-import db from './databases';
+import * as Koa from "koa";
+import { buildSchemaSync } from "type-graphql";
+import { ApolloServer } from "apollo-server-koa";
+import { Container } from "typedi";
+import { DataLoaderMiddleware } from "./middlewares/dataloader.middleware";
+import db from "./databases";
+
+import { authChecker } from "./auth";
 (async () => {
     await db.sequelize.sync();
     const app = new Koa();
     // graphql
     const schema = buildSchemaSync({
-        resolvers: [__dirname + '/resolvers/**/*.ts', __dirname + '/resolvers/**/*.js'],
+        resolvers: [__dirname + "/resolvers/**/*.ts", __dirname + "/resolvers/**/*.js"],
+        authChecker,
         container: Container,
         globalMiddlewares: [DataLoaderMiddleware],
-        dateScalarMode: 'isoDate',
+        dateScalarMode: "isoDate",
     });
 
     const server = new ApolloServer({

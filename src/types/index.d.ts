@@ -1,6 +1,6 @@
-import { DataLoaders } from '../dataloader';
+import { DataLoaders } from "../dataloader";
 
-declare module 'koa' {
+declare module "koa" {
     interface Context {
         dataLoaders: DataLoaders;
     }
